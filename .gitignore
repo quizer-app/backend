@@ -1,0 +1,5 @@
+/**/.env
+/**/public/assets
+/**/tmp
+/**/*.exe
+dist/

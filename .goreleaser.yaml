@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+project_name: quizer
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - main: .
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+    goarch:
+      - amd64
+    
+release:
+  github:
+    owner: quizer-app
+    name: backend
+
+dockers:
+  - goos: linux
+    goarch: amd64
+
+    image_templates:
+      - "ghcr.io/quizer-app/backend:latest"
+      - "ghcr.io/quizer-app/backend:{{ .Version }}"
+    
+    dockerfile: Dockerfile
+    use: docker
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+
+    push_flags:
+      - --tls-verify=false
