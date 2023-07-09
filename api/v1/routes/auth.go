@@ -1,11 +1,11 @@
-package auth
+package routes
 
 import (
 	"github.com/EloToJaa/quizer/controllers/auth"
 	"github.com/gofiber/fiber/v2"
 )
 
-func RegisterRoutes(router fiber.Router) {
+func AuthRoutes(router fiber.Router) {
 	authRouter := router.Group("/auth")
 
 	authRouter.Post("/login", auth.LoginController)
