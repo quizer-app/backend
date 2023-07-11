@@ -36,10 +36,14 @@ func main() {
 
 	app.Use(logger.New())
 	app.Use(recover.New())
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowCredentials: true,
+		AllowOrigins:     "http://localhost:5173",
+		AllowHeaders:     "Origin, Content-Type, Accept, Cookie",
+	}))
 	// app.Use(csrf.New())
 	app.Use(limiter.New(limiter.Config{
-		Max:        20,
+		Max:        2000,
 		Expiration: time.Minute,
 		LimitReached: func(c *fiber.Ctx) error {
 			return c.Status(fiber.StatusTooManyRequests).JSON(fiber.Map{

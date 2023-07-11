@@ -116,6 +116,8 @@ func LoginController(ctx *fiber.Ctx) error {
 		Value:    refreshToken,
 		Expires:  jwt.GetRefreshTokenExpirationTime(),
 		HTTPOnly: true,
+		SameSite: "None",
+		Secure:   true,
 	})
 
 	// Send response
