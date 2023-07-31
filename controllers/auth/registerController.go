@@ -47,7 +47,7 @@ func RegisterController(ctx *fiber.Ctx) error {
 	// Check if user exists
 	err := userCollection.FindOne(ctx.Context(), bson.M{"username": body.Username}).Decode(&userModel)
 	if err == nil {
-		ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+		ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Username already exists",
 		})
 		return nil
@@ -56,7 +56,7 @@ func RegisterController(ctx *fiber.Ctx) error {
 	// Check if email exists
 	err = userCollection.FindOne(ctx.Context(), bson.M{"email": body.Email}).Decode(&userModel)
 	if err == nil {
-		ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+		ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Email already in use",
 		})
 		return nil

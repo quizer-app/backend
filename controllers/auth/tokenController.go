@@ -50,8 +50,8 @@ func TokenController(ctx *fiber.Ctx) error {
 	}
 
 	ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"access_token": accessToken,
-		"message":      "Token refreshed",
+		"accessToken": accessToken,
+		"message":     "Token refreshed",
 	})
 
 	return nil

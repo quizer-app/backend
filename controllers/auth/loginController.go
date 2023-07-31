@@ -122,8 +122,8 @@ func LoginController(ctx *fiber.Ctx) error {
 
 	// Send response
 	ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Success",
-		"token":   accessToken,
+		"message":     "Success",
+		"accessToken": accessToken,
 	})
 	return nil
 }
