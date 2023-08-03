@@ -11,6 +11,7 @@ import (
 
 func TokenController(ctx *fiber.Ctx) error {
 	refreshToken := ctx.Cookies("refresh_token")
+
 	if refreshToken == "" {
 		ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": "Unauthorized",

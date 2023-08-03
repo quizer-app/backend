@@ -48,7 +48,7 @@ func LoginController(ctx *fiber.Ctx) error {
 		{"email": body.UsernameOrEmail},
 	}}).Decode(&userModel)
 	if err != nil {
-		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
+		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Wrong username or password",
 		})
 	}
@@ -56,7 +56,7 @@ func LoginController(ctx *fiber.Ctx) error {
 	// Check if password is correct
 	argon2id := utils.NewArgon2ID()
 	if ok, err := argon2id.Verify(body.Password, userModel.Password); !ok || err != nil {
-		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
+		return ctx.Status(fiber.StatusConflict).JSON(fiber.Map{
 			"message": "Wrong username or password",
 		})
 	}
@@ -115,9 +115,8 @@ func LoginController(ctx *fiber.Ctx) error {
 		Name:     "refresh_token",
 		Value:    refreshToken,
 		Expires:  jwt.GetRefreshTokenExpirationTime(),
+		Secure:   false,
 		HTTPOnly: true,
-		SameSite: "None",
-		Secure:   true,
 	})
 
 	// Send response

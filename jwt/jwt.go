@@ -12,7 +12,7 @@ func GetRefreshTokenExpirationTime() time.Time {
 }
 
 func GetAccessTokenExpirationTime() time.Time {
-	return time.Now().Add(time.Minute * 5)
+	return time.Now().Add(time.Second * 5)
 }
 
 func GetRefreshTokenSecret(passwordHash string) string {
