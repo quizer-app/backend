@@ -24,7 +24,6 @@ func init() {
 }
 
 func main() {
-
 	app := fiber.New(fiber.Config{
 		ServerHeader: "Quizer",
 		AppName:      "Quizer",
